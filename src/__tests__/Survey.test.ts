@@ -9,6 +9,12 @@ describe("Survey", () => {
     await connection.runMigrations();
   });
 
+  afterAll(async () => {
+    const connection = await createConnection();
+    await connection.dropDatabase();
+    await connection.close();
+  });
+
   it("Should be able to create a new survey", async () => {
     const res = await request(app).post("/surveys").send({
       title: "Title Example",
